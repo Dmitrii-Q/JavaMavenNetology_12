@@ -3,8 +3,6 @@ package JavaMavenNetology.JavaMavenNetology_12.tournament;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GameTest {
 
     @Test
@@ -46,10 +44,24 @@ class GameTest {
         game.register(ivan);
         game.register(evgen);
 
-        int expected = 1;
+        int expected = 2;
         int actual = game.round("Ivan", "Evgen");
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void notRegisteredPlayer() {
+        Game game = new Game();
+
+        Player ivan = new Player(1, "Ivan", 30);
+        Player evgen = new Player(2, "Evgen", 35);
+        game.register(ivan);
+        game.register(evgen);
+
+        Assertions.assertThrows(NotRegisteredException.class,
+                () -> game.register("alex")
+        );
     }
 }
 
